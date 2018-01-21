@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>编码管理</title>
+    <script src="../resource/js/jquery-3.2.1.min.js"></script>
+    <script src="../resource/js/layer/layer.js"></script>
+    <script src="../resource/js/codeRule.js"></script>
+    <script src="../resource/js/ajaxfileupload.js"></script>
+    <link rel="stylesheet" href="../resource/js/layer/theme/default/layer.css"/>
+    <link rel="stylesheet" href="../resource/css/iconfont.css">
+    <link rel="stylesheet" href="../resource/css/codeRule.css">
+
+    <style>
+        .normal {
+            background-color: #eaeaea
+        }
+       .targetEditFetced input:focus{border: solid 1px #898989}
+
+        .change {
+            background-color: #d8d8d8
+        }
+
+        .divBgColor {
+            background-color: #009f95;
+        }
+
+        table {
+            word-wrap: break-word;
+            word-break: break-all;
+            table-layout: fixed;
+        }
+
+        td .littlerulename {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="target_div">
+        <table class="target_table" border="1" cellpadding="0" cellspacing="0"
+               style="width: 100%;border:solid thin darkgray">
+            <thead>
+            <tr>
+                <th width="10%" height="35px">对象编号</th>
+                <th width="10%">对象名称</th>
+                <th width="20%">对象规则</th>
+                <th width="10%">创建用户</th>
+                <th width="10%">创建时间</th>
+                <th width="15%">说明</th>
+                <th width="20%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="targetValue" id="targetTable">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="addTarget iconfont icon-add"></div>
+
+    <div class="clear"></div>
+</div>
+
+<div>
+    <input type="file" id="file" name="file" onchange="ajaxFileUpload();"/>
+    <input type="hidden" id="pic" name="pic"/>
+</div>
+
+<div id="layOpen" style="display: none ;">
+
+    <div class="targetOperator openDiv">
+        <div style="border: solid thin #898989; width: 80%; " >
+            <table class="targetEditFetced" border="0" cellspacing="0" cellpadding="2px">
+                <tr class="isHiden">
+                    <td>ID</td>
+                    <td><input class="targetid"></td>
+                </tr>
+                <tr>
+                    <td>名称</td>
+                    <td><input class="targetname" style="outline:none" placeholder="请输入对象名称"></td>
+                </tr>
+                <tr>
+                    <td>编号</td>
+                    <td><input class="targetcode" style="outline:none" placeholder="请输入对象编号"></td>
+                </tr>
+                <tr>
+                    <td>说明</td>
+                    <td><input class="targetremark" style="outline:none" placeholder="请输入说明内容"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="ruleChoose">
+            <table class="targetEdit">
+                <tr margin="10px" height="40px">
+                    <td id="chooseTime" opt="TimeBase" width="80px" bgcolor="#eaeaea"
+                        onmouseover="this.className='change'" onmouseout="this.className='normal'">时间
+                    </td>
+                    <td id="chooseFix" opt="Fix" width="80px" bgcolor="#eaeaea" onmouseover="this.className='change'"
+                        onmouseout="this.className='normal'">固定值
+                    </td>
+                    <td id="chooseFlow" width="80px" opt="Flow" bgcolor="#eaeaea" onmouseover="this.className='change'"
+                        onmouseout="this.className='normal'">流水号
+                    </td>
+                </tr>
+            </table>
+            <div class="littleRule">
+            </div>
+
+        </div>
+        <div class="ruleOperator">
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="saveTarget iconfont icon-save"></div>
+
+    <div class="bigRuleDiv openDiv" style="width:40%; clear: left; overflow: hidden;">
+        <table class="RuleValue">
+            <thead>
+            <tr margin="10px" height="40px">
+                <td id="TimeBase" width="80px" bgcolor="#eaeaea" class="td_RuleValue"
+                    onmouseover="this.className='change'" onmouseout="this.className='normal'">时间
+                </td>
+                <td id="Fix" width="80px" bgcolor="#eaeaea" class="td_RuleValue" onmouseover="this.className='change'"
+                    onmouseout="this.className='normal'">固定值
+                </td>
+                <td id="Flow" width="80px" bgcolor="#eaeaea" class="td_RuleValue" onmouseover="this.className='change'"
+                    onmouseout="this.className='normal'">流水号
+                </td>
+            </tr>
+            </thead>
+        </table>
+        <table class="RuleValue" bgcolor="#f8f8ff" border="1" cellpadding="3" cellspacing="0"
+               style="width: 100%;overflow: hidden;white-space: nowrap;" align="center">
+            <thead>
+            <tr>
+                <th class="littleruleid">编号</th>
+                <th class="littlerulename" width="28%">名称</th>
+                <th class="typeclass" width="14%">类型</th>
+                <th class="conditionalvalue" width="14%">规则值</th>
+                <th class="spacer" width="14%">填充位</th>
+                <th class="seq" width="14%">起始值</th>
+                <th class="param" width="14%">参数</th>
+                <th align="center" width="14%">操作
+                </td>
+            </tr>
+            </thead>
+            <tbody class="littleRuleValue" style="overflow: hidden;white-space: nowrap;">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+<script>
+    function ajaxFileUpload() {
+        $.ajaxFileUpload({
+            url: "../codeRuleController.do?fileUpload",
+            fileElementId: 'file',
+            dataType: "json",
+            success: function (data) {
+                alert('success');
+            },
+            error: function (data) {
+                alert("上传失败");
+            }
+        });
+    }
+</script>
+</html>

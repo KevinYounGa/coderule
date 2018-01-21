@@ -1,0 +1,109 @@
+.content {
+    margin-left: 5%;
+    width: 90%;
+    height: auto;
+}
+td {
+    text-align: center;
+}
+
+.operatorDiv {
+    margin-left: 30px;
+}
+
+.bigRule td {
+    text-align: center;
+    height: 30px;
+    width: 60px;
+    margin-left: 30px;
+}
+
+.flowRule {
+    display: none;
+}
+
+.fixRule {
+    display: none;
+}
+
+.openDiv {
+    float: left;
+    margin-left: 100px;
+}
+
+.clear {
+    clear: both;
+}
+
+.littleRule {
+    width: 500px;
+    min-height: 150px;
+    border: solid 1px;
+}
+
+.ruleOperator {
+    margin-top: 10px;
+    width: 500px;
+    min-height: 150px;
+    border: solid 1px;
+}
+
+.addTarget {
+    margin-top: 10px;
+    margin-right: 50px;
+    width: 20px;
+    height: 20px;
+    float: right;
+    color: red;
+
+}
+
+.IsBigRule {
+    background-color: #1d943b;
+    border-radius: 5px;
+}
+
+.isHiden {
+    display: none;
+}
+
+.saveTarget {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-left: 150px;
+    margin-top: 20px ;
+}
+
+
+
+.canChooseLittle, .canDrag {
+    width: auto;
+    height: 35px;
+    background-color: #ffffc0;
+    float: left;
+    margin-left: 20px;
+    text-align: center;
+    line-height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.littleIsChoose {
+    background-color: #60ffff;
+}
+
+.ruleBeenChoose {
+    background-color: aqua;
+}
+
+.targetEditFetced input{
+    width: 221px;
+    height: 28px;
+    margin-left: 10px;
+}
+
+.targetEdit td ,.RuleValue td{
+    cursor:pointer;
+}
